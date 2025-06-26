@@ -1,10 +1,8 @@
 import streamlit as st
 from pathlib import Path
-# from src.common.common import page_setup
+from src.common.common import page_setup
 
-# page_setup()
-
-st.title("Download Analysis Results")
+page_setup()
 
 if st.session_state.get("analysis_success"):
     zip_path = Path(st.session_state["results_zip_path"])
