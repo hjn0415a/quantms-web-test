@@ -164,12 +164,15 @@ with tabs[2]:
         fasta_path = str(fasta_files[0])
         profile = st.session_state.get("profile", "docker")
 
+        command_placeholder = st.empty()
         status_placeholder = st.empty()
         output_placeholder = st.empty()
         output_lines = ""
         returncode = None
 
         for kind, value in CommandExecutor.run_nextflow(sdrf_path, fasta_path, profile):
+            if kind == "cmd":
+                command_placeholder.code(value, language="bash")
             if kind == "log_update":
                 output_lines = value
                 output_placeholder.text_area("Analysis Log", output_lines, height=400)

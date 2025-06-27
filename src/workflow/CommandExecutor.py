@@ -270,27 +270,28 @@ class CommandExecutor:
 
     def run_nextflow(input_path: str, database_path: str, profile: str = "docker", workdir: str = ".") -> tuple:
         # Convert to absolute path
-        base_workspace_path = "/workspace"
+        # base_workspace_path = "/workspace"
 
         input_abs_path = os.path.abspath(input_path)
         db_abs_path = os.path.abspath(database_path)
 
-        relative_input_path = input_abs_path.lstrip(os.sep)
-        relative_db_path = db_abs_path.lstrip(os.sep)
+        # relative_input_path = input_abs_path.lstrip(os.sep)
+        # relative_db_path = db_abs_path.lstrip(os.sep)
 
-        workspace_input_path = os.path.join(base_workspace_path, relative_input_path)
-        workspace_db_path = os.path.join(base_workspace_path, relative_db_path)
-        nextflow_work_dir = os.path.join(base_workspace_path, "work")
+        # workspace_input_path = os.path.join(base_workspace_path, relative_input_path)
+        # workspace_db_path = os.path.join(base_workspace_path, relative_db_path)
 
         # Construct Nextflow command
         linux_cmd = (
             f"nextflow run bigbio/quantms -r dev "
-            f"--input '{workspace_input_path}' "
-            f"--database '{workspace_db_path}' "
+            f"--input '{input_abs_path}' "
+            f"--database '{db_abs_path}' "
             f"-profile {profile} "
             f"--add_decoys "
             f"--skip_post_msstats "
         )
+
+        yield ("cmd", linux_cmd)
 
         process = subprocess.Popen(
             linux_cmd,

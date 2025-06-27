@@ -1,0 +1,2 @@
+.	Contaminants	Peptide Intensity	Charge	Missed Cleavages	Missed Cleavages Var	ID rate over RT	MS2 OverSampling	Pep Missing Values
+e0590_01_LysConly	1.0	1.0	1.0	0.4241384045036386	1.0	0.5120091243574554	0.8637858149365899	1.0
