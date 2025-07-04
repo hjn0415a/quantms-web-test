@@ -1,8 +1,0 @@
-PROCESSING: sdrf.tsv"
-Factor columns: ['factor value[organism part]']
-Characteristics columns (those covered by factor columns removed): ['characteristics[organism]', 'characteristics[cell type]', 'characteristics[age]', 'characteristics[ancestry category]', 'characteristics[sex]', 'characteristics[disease]', 'characteristics[developmental stage]', 'characteristics[biological replicate]', 'characteristics[individual]']
-Conditions (1): dict_keys(['dorsolateral prefrontal cortex'])
-Files per condition: dict_values([1])
-WARNING: "No dissociation method provided. Assuming HCD." occurred 1 times.
-WARNING: "The comment[proteomics data acquisition method] column is missing, default Data-Dependent Acquisition" occurred 1 times.
-SUCCESS (WARNINGS=2): sdrf.tsv

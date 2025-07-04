@@ -1,2 +1,0 @@
-Sample	#Identified MS2 Spectra	%Identified MS2 Spectra	#Peptides Identified	#Proteins Identified	#Proteins Quantified
-38056	7283	19.137586714315745	4780	3405	2414

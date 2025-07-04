@@ -1,3 +1,0 @@
-Sample	MSstats Condition	MSstats BioReplicate	Fraction Group	Fraction	Label
-1	dorsolateral prefrontal cortex	1			
-e0590_01_LysConly			1	1	1

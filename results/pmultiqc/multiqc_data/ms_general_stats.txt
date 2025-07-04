@@ -1,2 +1,0 @@
-Sample	Acquisition Date Time	log10(Total Current)	log10(Scan Current)
-e0590_01_LysConly	2014-09-28 17:09:14	13.334020436368998	11.59943603889673

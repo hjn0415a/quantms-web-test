@@ -1,2 +1,0 @@
-URI	Filename	FixedModifications	VariableModifications	Proteomics Data Acquisition Method	Label	PrecursorMassTolerance	PrecursorMassToleranceUnit	FragmentMassTolerance	FragmentMassToleranceUnit	DissociationMethod	Enzyme
-https://ftp.pride.ebi.ac.uk/pride/data/archive/2017/07/PXD004143/e0590_01_LysConly.raw	e0590_01_LysConly.raw	Carbamidomethyl (C)	Oxidation (M),Deamidated (N),Deamidated (Q)	Data-Dependent Acquisition	label free sample	10	ppm	0.5	Da	HCD	Trypsin
