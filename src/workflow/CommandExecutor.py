@@ -270,16 +270,8 @@ class CommandExecutor:
 
     def run_nextflow(input_path: str, database_path: str, profile: str = "docker", workdir: str = ".") -> tuple:
         # Convert to absolute path
-        # base_workspace_path = "/workspace"
-
         input_abs_path = os.path.abspath(input_path)
         db_abs_path = os.path.abspath(database_path)
-
-        # relative_input_path = input_abs_path.lstrip(os.sep)
-        # relative_db_path = db_abs_path.lstrip(os.sep)
-
-        # workspace_input_path = os.path.join(base_workspace_path, relative_input_path)
-        # workspace_db_path = os.path.join(base_workspace_path, relative_db_path)
 
         # Construct Nextflow command
         linux_cmd = (
@@ -296,7 +288,7 @@ class CommandExecutor:
         process = subprocess.Popen(
             linux_cmd,
             shell=True,
-            cwd="/workspace",
+            cwd=str(st.session_state.workspace),
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,

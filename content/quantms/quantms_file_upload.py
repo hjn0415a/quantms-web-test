@@ -182,12 +182,12 @@ with tabs[2]:
         if returncode == 0:
             status_placeholder.success("The analysis completed successfully.")
 
-            results_dir = Path("/workspace/results")
+            results_dir = Path(st.session_state.workspace, "results")
+
             zip_path = results_dir.with_suffix(".zip")
             zip_results_folder(results_dir, zip_path)
 
             st.session_state["analysis_success"] = True
-            st.session_state["results_zip_path"] = str(zip_path)
         else:
             status_placeholder.error(f"An error occurred during the analysis (exit code {returncode}).")
             st.session_state["analysis_success"] = False

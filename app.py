@@ -11,6 +11,8 @@ if "settings" not in st.session_state:
 if __name__ == '__main__':
     pages = {
         "QuantMS": [
+             st.Page(Path("content", "quantms", "quickstart.py"), title="Quickstart", icon="👋"),
+             st.Page(Path("content", "quantms", "generate_sdrf.py"), title="Generate SDRF", icon="📃"),
              st.Page(Path("content", "quantms", "quantms_file_upload.py"), title="Workflow", icon="⚙️"),
              st.Page(Path("content", "quantms", "quantms_download.py"), title="Download", icon="⬇️"),
         ]
