@@ -308,86 +308,95 @@ def render_sidebar(page: str = "") -> None:
     params = load_params()
     with st.sidebar:
         # The main page has workspace switcher
-        # Display workspace switcher if workspace is enabled in local mode
-        # if st.session_state.settings["enable_workspaces"]:
-        #     with st.expander("🖥️ **Workspaces**"):
-        #         # Workspaces directory specified in the settings.json
-        #         if (
-        #             st.session_state.settings["workspaces_dir"]
-        #             and st.session_state.location == "local"
-        #         ):
-        #             workspaces_dir = Path(
-        #                 st.session_state.settings["workspaces_dir"],
-        #                 "workspaces-" + st.session_state.settings["repository-name"],
-        #             )
-        #         else:
-        #             workspaces_dir = ".."
-        #         # Online: show current workspace name in info text and option to change to other existing workspace
-        #         if st.session_state.location == "local":
-        #             # Define callback function to change workspace
-        #             def change_workspace():
-        #                 for key in params.keys():
-        #                     if key in st.session_state.keys():
-        #                         del st.session_state[key]
-        #                 st.session_state.workspace = Path(
-        #                     workspaces_dir, st.session_state["chosen-workspace"]
-        #                 )
-        #                 st.query_params.workspace = st.session_state["chosen-workspace"]
+        if page == "main":
+            st.markdown("🖥️ **Workspaces**")
+            # Define workspaces directory outside of repository
+            if st.session_state.location == "local":
+                workspaces_dir = Path("..", "workspaces-"+ st.session_state.settings["repository-name"])
+            else:
+                workspaces_dir = Path("..")
+            # Online: show current workspace name in info text and option to change to other existing workspace
+            if st.session_state.location == "online":
+                # Change workspace...
+                new_workspace = st.text_input("enter workspace", "")
+                if st.button("**Enter Workspace**") and new_workspace:
+                    path = Path(
+                        workspaces_dir, new_workspace)
+                    if path.exists():
+                        st.session_state.workspace = path
+                    else:
+                        st.warning("⚠️ Workspace does not exist.")
+                # Display info on current workspace and warning
+                st.info(
+                    f"""💡 Your workspace ID:
 
-        #             # Get all available workspaces as options
-        #             options = [
-        #                 file.name for file in workspaces_dir.iterdir() if file.is_dir()
-        #             ]
-        #             # Let user chose an already existing workspace
-        #             st.selectbox(
-        #                 "choose existing workspace",
-        #                 options,
-        #                 index=options.index(str(st.session_state.workspace.stem)),
-        #                 on_change=change_workspace,
-        #                 key="chosen-workspace",
-        #             )
-        #             # Create or Remove workspaces
-        #             create_remove = st.text_input("create/remove workspace", "").strip()
-        #             path = Path(workspaces_dir, create_remove)
-        #             # Create new workspace
-        #             if st.button("**Create Workspace**"):
-        #                 if create_remove:
-        #                     path.mkdir(parents=True, exist_ok=True)
-        #                     st.session_state.workspace = path
-        #                     st.query_params.workspace = create_remove
-        #                     # Temporary as the query update takes a short amount of time
-        #                     time.sleep(1)
-        #                     st.rerun()
-        #                 else:
-        #                     st.warning("Please enter a valid workspace name.")
-        #             # Remove existing workspace and fall back to default
-        #             if st.button("⚠️ Delete Workspace"):
-        #                 if path.exists():
-        #                     shutil.rmtree(path)
-        #                     st.session_state.workspace = Path(workspaces_dir, "default")
-        #                     st.query_params.workspace = "default"
-        #                     st.rerun()
+**{st.session_state['workspace'].name}**
 
-        # # All pages have settings, workflow indicator and logo
-        # with st.expander("⚙️ **Settings**"):
-        #     img_formats = ["svg", "png", "jpeg", "webp"]
-        #     st.selectbox(
-        #         "image export format",
-        #         img_formats,
-        #         img_formats.index(params["image-format"]),
-        #         key="image-format",
-        #     )
-        #     st.markdown("## Spectrum Plotting")
-        #     st.selectbox("Bin Peaks", ["auto", True, False], key="spectrum_bin_peaks")
-        #     if st.session_state["spectrum_bin_peaks"] == True:
-        #         st.number_input(
-        #             "Number of Bins (m/z)", 1, 10000, 50, key="spectrum_num_bins"
-        #         )
-        #     else:
-        #         st.session_state["spectrum_num_bins"] = 50
+You can share this unique workspace ID with other people.
 
-        # with st.expander("📊 **Resource Utilization**"):
-        #     monitor_hardware()
+⚠️ Anyone with this ID can access your data!"""
+                )
+            # Local: user can create/remove workspaces as well and see all available
+            elif st.session_state.location == "local":
+                # Define callback function to change workspace
+                def change_workspace():
+                    for key in params.keys():
+                        if key in st.session_state.keys():
+                            del st.session_state[key]
+                    st.session_state.workspace = Path(
+                        workspaces_dir, st.session_state["chosen-workspace"]
+                    )
+                # Get all available workspaces as options
+                options = [file.name for file in workspaces_dir.iterdir()
+                           if file.is_dir()]
+                # Let user chose an already existing workspace
+                st.selectbox(
+                    "choose existing workspace",
+                    options,
+                    index=options.index(
+                        str(st.session_state.workspace.stem)),
+                    on_change=change_workspace,
+                    key="chosen-workspace"
+                )
+                # Create or Remove workspaces
+                create_remove = st.text_input(
+                    "create/remove workspace", "")
+                path = Path(workspaces_dir, create_remove)
+                # Create new workspace
+                if st.button("**Create Workspace**"):
+                    path.mkdir(parents=True, exist_ok=True)
+                    st.session_state.workspace = path
+                    st.rerun()
+                # Remove existing workspace and fall back to default
+                if st.button("⚠️ Delete Workspace"):
+                    if path.exists():
+                        shutil.rmtree(path)
+                        st.session_state.workspace = Path(
+                            workspaces_dir, "default"
+                        )
+                        st.rerun()
+
+
+        # All pages have settings, workflow indicator and logo
+        with st.expander("⚙️ **Settings**"):
+            img_formats = ["svg", "png", "jpeg", "webp"]
+            st.selectbox(
+                "image export format",
+                img_formats,
+                img_formats.index(params["image-format"]),
+                key="image-format",
+            )
+            st.markdown("## Spectrum Plotting")
+            st.selectbox("Bin Peaks", ["auto", True, False], key="spectrum_bin_peaks")
+            if st.session_state["spectrum_bin_peaks"] == True:
+                st.number_input(
+                    "Number of Bins (m/z)", 1, 10000, 50, key="spectrum_num_bins"
+                )
+            else:
+                st.session_state["spectrum_num_bins"] = 50
+
+        with st.expander("📊 **Resource Utilization**"):
+            monitor_hardware()
 
         # Display OpenMS WebApp Template Version from settings.json
         with st.container():
