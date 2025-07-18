@@ -50,6 +50,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 WORKDIR /app
 COPY assets/ /app/assets/
 COPY content/quantms /app/content/quantms
+COPY gdpr_consent/ /app/gdpr_consent
 COPY src/ /app/src
 COPY app.py /app/app.py
 COPY settings.json /app/settings.json
