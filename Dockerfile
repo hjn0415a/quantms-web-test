@@ -35,6 +35,13 @@ COPY requirements.txt .
 SHELL ["conda", "run", "-n", "quantms-env", "/bin/bash", "-c"]
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Generate SSH key pair (for connecting to host)
+SHELL ["/bin/bash", "-c"]
+RUN mkdir -p /root/.ssh && \
+    ssh-keygen -t rsa -b 4096 -f /root/.ssh/id_rsa -N "" && \
+    chmod 600 /root/.ssh/id_rsa && \
+    chmod 644 /root/.ssh/id_rsa.pub
+
 # Copy application code
 WORKDIR /app
 COPY assets/ /app/assets/
