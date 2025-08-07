@@ -232,7 +232,7 @@ def page_setup(page: str = "") -> dict[str, Any]:
                 "workspaces-" + st.session_state.settings["repository-name"],
             )
         else:
-            workspaces_dir = ".."
+            workspaces_dir = "../users"
 
         # Check if workspace logic is enabled
         if st.session_state.settings["enable_workspaces"]:

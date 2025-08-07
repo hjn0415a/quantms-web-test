@@ -13,6 +13,10 @@
             "tag": "57690c44-d635-43b0-ab43-f8bd3064ca06"
         }
     },
+    "nextflow_config": {
+        "add_decoys": true,
+        "skip_post_msstats": true
+    },
     "online_deployment": true,
     "enable_workspaces": true,
     "test": false,

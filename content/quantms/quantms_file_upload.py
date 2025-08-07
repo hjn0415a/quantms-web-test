@@ -171,9 +171,11 @@ with tabs[2]:
         returncode = None
 
         for kind, value in CommandExecutor.run_nextflow(sdrf_path, fasta_path, profile):
-            if kind == "cmd":
+            if kind == "debug":
+                st.code(value, language="bash")
+            elif kind == "cmd":
                 command_placeholder.code(value, language="bash")
-            if kind == "log_update":
+            elif kind == "log_update":
                 output_lines = value
                 output_placeholder.text_area("Analysis Log", output_lines, height=400)
             elif kind == "returncode":

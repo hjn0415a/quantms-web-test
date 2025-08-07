@@ -10,6 +10,7 @@ import sys
 import importlib.util
 import json
 import streamlit as st
+import shlex
 
 class CommandExecutor:
     """
@@ -268,27 +269,48 @@ class CommandExecutor:
             # remove tmp params file
             tmp_params_file.unlink()
 
-    def run_nextflow(input_path: str, database_path: str, profile: str = "docker", workdir: str = ".") -> tuple:
+    def run_nextflow(input_path: str, database_path: str, profile: str = "docker", ssh_user: str = "root", 
+                     ssh_host: str = "172.29.54.237", ssh_key_path: str = "/root/.ssh/id_rsa") -> tuple:
         # Convert to absolute path
         input_abs_path = os.path.abspath(input_path)
         db_abs_path = os.path.abspath(database_path)
 
+        workspace_path = st.session_state.workspace
+
+        if "settings" not in st.session_state:
+            with open("settings.json", "r") as f:
+                st.session_state.settings = json.load(f)
+
+        nextflow_config = st.session_state.settings["nextflow_config"]
+        config_args = ' '.join(f'--{k} {v}' for k, v in nextflow_config.items()) 
+
         # Construct Nextflow command
-        linux_cmd = (
-            f"nextflow run bigbio/quantms -r dev "
-            f"--input '{input_abs_path}' "
-            f"--database '{db_abs_path}' "
+        nf_cmd = (
+            f"cd {workspace_path} && "
+            f"/root/.local/bin/nextflow run bigbio/quantms -r dev "
+            f"--input {input_abs_path} "
+            f"--database {db_abs_path} "
             f"-profile {profile} "
-            f"--add_decoys "
-            f"--skip_post_msstats "
+            f"{config_args}"
+            f"-work-dir /nf-work"
         )
 
-        yield ("cmd", linux_cmd)
+        ssh_cmd = (
+            f"ssh -i {shlex.quote(ssh_key_path)} "
+            f"-o StrictHostKeyChecking=no"
+            f"-o UserKnownHostsFile=/dev/null "
+            f"{shlex.quote(ssh_user)}@{shlex.quote(ssh_host)} "
+            f'"bash -l -c {shlex.quote(nf_cmd)}"'
+        )
+
+        yield ("debug", f"[DEBUG] nf_cmd = {nf_cmd}")
+        yield ("debug", f"[DEBUG] ssh_cmd = {ssh_cmd}")
+
+        yield ("cmd", nf_cmd)
 
         process = subprocess.Popen(
-            linux_cmd,
+            ssh_cmd,
             shell=True,
-            cwd=str(st.session_state.workspace),
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,

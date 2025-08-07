@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Install essential packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget curl git zip unzip build-essential ca-certificates \
-    software-properties-common gnupg2 jq cron && \
+    software-properties-common gnupg2 jq cron openssh-client && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Java via SDKMAN (for compatibility if any Java tools needed)
