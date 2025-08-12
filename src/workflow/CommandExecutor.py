@@ -10,7 +10,7 @@ import sys
 import importlib.util
 import json
 import streamlit as st
-import shlex
+import requests
 
 class CommandExecutor:
     """
@@ -269,62 +269,44 @@ class CommandExecutor:
             # remove tmp params file
             tmp_params_file.unlink()
 
-    def run_nextflow(input_path: str, database_path: str, profile: str = "docker", ssh_user: str = "root", 
-                     ssh_host: str = "172.29.54.237", ssh_key_path: str = "/root/.ssh/id_rsa") -> tuple:
+    def run_nextflow(input_path: str, database_path: str, profile: str = "docker") -> tuple:
         # Convert to absolute path
         input_abs_path = os.path.abspath(input_path)
         db_abs_path = os.path.abspath(database_path)
 
-        workspace_path = st.session_state.workspace
+        endpoint = "http://localhost:3000/api/runs"
+        token = "2488a2fef3933841-e3b92a0f0995a5a6-245cae152585ceb7-6e756b8ae656a22f"
 
-        if "settings" not in st.session_state:
-            with open("settings.json", "r") as f:
-                st.session_state.settings = json.load(f)
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
 
-        nextflow_config = st.session_state.settings["nextflow_config"]
-        config_args = ' '.join(f'--{k} {v}' for k, v in nextflow_config.items()) 
+        # nf-shard Pipeline Execution Request Body
+        data = {
+            "runName": "quantms-run-from-streamlit",
+            "pipeline": "bigbio/quantms",
+            "params": {
+                "input": input_abs_path,
+                "database": db_abs_path,
+                "profile": profile,
+                "add_decoys": True,
+                "skip_post_msstats": True
+            }
+        }
 
-        # Construct Nextflow command
-        nf_cmd = (
-            f"cd {workspace_path} && "
-            f"/root/.local/bin/nextflow run bigbio/quantms -r dev "
-            f"--input {input_abs_path} "
-            f"--database {db_abs_path} "
-            f"-profile {profile} "
-            f"{config_args}"
-            f"-work-dir /nf-work"
-        )
+        yield ("cmd", f"POST {endpoint} with data {data}")
 
-        ssh_cmd = (
-            f"ssh -i {shlex.quote(ssh_key_path)} "
-            f"-o StrictHostKeyChecking=no"
-            f"-o UserKnownHostsFile=/dev/null "
-            f"{shlex.quote(ssh_user)}@{shlex.quote(ssh_host)} "
-            f'"bash -l -c {shlex.quote(nf_cmd)}"'
-        )
-
-        yield ("debug", f"[DEBUG] nf_cmd = {nf_cmd}")
-        yield ("debug", f"[DEBUG] ssh_cmd = {ssh_cmd}")
-
-        yield ("cmd", nf_cmd)
-
-        process = subprocess.Popen(
-            ssh_cmd,
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            encoding="utf-8",
-            bufsize=1
-        )
-
-        output_lines = ""
-
-        for line in iter(process.stdout.readline, ''):
-            output_lines += line
-            yield ("log_update", output_lines)
-
-        process.stdout.close()
-        process.wait()
-
-        yield ("returncode", process.returncode)
+        try:
+            response = requests.post(endpoint, json=data, headers=headers)
+            if response.status_code == 200:
+                run_info = response.json()
+                yield ("log_update", f"Nextflow Execution request succeeded, Run ID: {run_info.get('id')}")
+                yield ("returncode", 0)
+                yield ("run_info", run_info)
+            else:
+                yield ("log_update", f"Execution request failed: {response.text}")
+                yield ("returncode", 1)
+        except Exception as e:
+            yield ("log_update", f"API Exception occurred during API call: {str(e)}")
+            yield ("returncode", 1)
