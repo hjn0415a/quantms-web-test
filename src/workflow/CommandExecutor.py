@@ -269,44 +269,25 @@ class CommandExecutor:
             # remove tmp params file
             tmp_params_file.unlink()
 
-    def run_nextflow(input_path: str, database_path: str, profile: str = "docker") -> tuple:
+    def run_nextflow(input_path: str, database_path: str, workdir: str, config_args: str, profile: str = "docker") -> tuple:
         # Convert to absolute path
-        input_abs_path = os.path.abspath(input_path)
-        db_abs_path = os.path.abspath(database_path)
-
-        endpoint = "http://localhost:3000/api/runs"
-        token = "2488a2fef3933841-e3b92a0f0995a5a6-245cae152585ceb7-6e756b8ae656a22f"
-
-        headers = {
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json"
-        }
-
-        # nf-shard Pipeline Execution Request Body
+        endpoint = "http://localhost:8000/run-nextflow/"
         data = {
-            "runName": "quantms-run-from-streamlit",
-            "pipeline": "bigbio/quantms",
-            "params": {
-                "input": input_abs_path,
-                "database": db_abs_path,
-                "profile": profile,
-                "add_decoys": True,
-                "skip_post_msstats": True
-            }
+            "input_path": input_path,
+            "database_path": database_path,
+            "profile": profile,
+            "workdir": workdir,
+            "config_args": config_args
         }
-
-        yield ("cmd", f"POST {endpoint} with data {data}")
-
         try:
-            response = requests.post(endpoint, json=data, headers=headers)
+            response = requests.post(endpoint, json=data)
             if response.status_code == 200:
-                run_info = response.json()
-                yield ("log_update", f"Nextflow Execution request succeeded, Run ID: {run_info.get('id')}")
-                yield ("returncode", 0)
-                yield ("run_info", run_info)
+                result = response.json()
+                yield ("log_update", "Nextflow execution started successfully")
+                yield ("log_update", result.get("output", ""))
+                yield ("returncode", result.get("returncode"))
+                yield ("cmd", result.get("cmd", ""))
             else:
-                yield ("log_update", f"Execution request failed: {response.text}")
-                yield ("returncode", 1)
+                yield ("log_update", f"Execution failed: {response.text}")
         except Exception as e:
-            yield ("log_update", f"API Exception occurred during API call: {str(e)}")
-            yield ("returncode", 1)
+            yield ("log_update", f"API Exception: {str(e)}")

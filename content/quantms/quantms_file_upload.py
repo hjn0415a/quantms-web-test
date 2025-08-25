@@ -163,6 +163,7 @@ with tabs[2]:
         sdrf_path = str(sdrf_files[0])
         fasta_path = str(fasta_files[0])
         profile = st.session_state.get("profile", "docker")
+        workdir = st.session_state.workspace
 
         command_placeholder = st.empty()
         status_placeholder = st.empty()
@@ -170,7 +171,15 @@ with tabs[2]:
         output_lines = ""
         returncode = None
 
-        for kind, value in CommandExecutor.run_nextflow(sdrf_path, fasta_path, profile):
+        if "settings" not in st.session_state:
+            with open("settings.json", "r") as f:
+                st.session_state.settings = json.load(f)
+
+        nextflow_config = st.session_state.settings["nextflow_config"]
+        config_args = ' '.join(f'--{k} {v}' for k, v in nextflow_config.items())
+        
+
+        for kind, value in CommandExecutor.run_nextflow(sdrf_path, fasta_path, workdir, config_args, profile):
             if kind == "debug":
                 st.code(value, language="bash")
             elif kind == "cmd":
