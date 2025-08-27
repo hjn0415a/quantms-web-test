@@ -276,7 +276,7 @@ class CommandExecutor:
             "input_path": input_path,
             "database_path": database_path,
             "profile": profile,
-            "workdir": workdir,
+            "workdir": str(workdir),
             "config_args": config_args
         }
         try:
