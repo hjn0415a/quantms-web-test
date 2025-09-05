@@ -43,6 +43,7 @@ COPY gdpr_consent/ /app/gdpr_consent
 COPY src/ /app/src
 COPY app.py /app/app.py
 COPY settings.json /app/settings.json
+COPY default-values.json /app/default-values.json
 COPY default-parameters.json /app/default-parameters.json
 COPY .streamlit/config.toml /app/.streamlit/config.toml
 
