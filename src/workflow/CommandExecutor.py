@@ -279,15 +279,14 @@ class CommandExecutor:
             "workdir": str(workdir),
             "config_args": config_args
         }
-        try:
-            response = requests.post(endpoint, json=data)
-            if response.status_code == 200:
-                result = response.json()
-                yield ("log_update", "Nextflow execution started successfully")
-                yield ("log_update", result.get("output", ""))
-                yield ("returncode", result.get("returncode"))
-                yield ("cmd", result.get("cmd", ""))
+        with requests.post(endpoint, json=data, stream=True) as r:
+            if r.status_code == 200:
+                for line in r.iter_lines(decode_unicode=True):
+                    if line:
+                        if line.startswith("[Process exited with code"):
+                            returncode = int(line.strip().split()[-1].replace("]", ""))
+                            yield ("returncode", returncode)
+                        else:
+                            yield ("log_update", line)
             else:
-                yield ("log_update", f"Execution failed: {response.text}")
-        except Exception as e:
-            yield ("log_update", f"API Exception: {str(e)}")
+                yield ("log_update", f"Execution failed: {r.text}")

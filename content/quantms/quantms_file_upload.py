@@ -254,8 +254,8 @@ with tabs[2]:
 
         command_placeholder = st.empty()
         status_placeholder = st.empty()
-        output_placeholder = st.empty()
-        output_lines = ""
+        log_placeholder = st.empty()
+        output_lines = []
         returncode = None
 
         default_values = load_default_values()
@@ -265,14 +265,8 @@ with tabs[2]:
             if k in default_values and default_values[k] != v
         }
 
-        # if "settings" not in st.session_state:
-        #     with open("settings.json", "r") as f:
-        #         st.session_state.settings = json.load(f)
-
-        # nextflow_config = st.session_state.settings["nextflow_config"]
-        # config_args = ' '.join(f'--{k} {v}' for k, v in nextflow_config.items())
-
         config_args = ' '.join(f'--{k} {v}' for k, v in changed_values.items())
+        config_args += " --skip_post_msstats True"
         st.write(config_args)
         
 
@@ -282,8 +276,8 @@ with tabs[2]:
             elif kind == "cmd":
                 command_placeholder.code(value, language="bash")
             elif kind == "log_update":
-                output_lines = value
-                output_placeholder.text_area("Analysis Log", output_lines, height=400)
+                output_lines.append(value)
+                log_placeholder.text_area("Analysis Log", "\n".join(output_lines), height=400)
             elif kind == "returncode":
                 returncode = value
 
