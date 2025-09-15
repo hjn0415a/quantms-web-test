@@ -52,10 +52,10 @@ with tabs[0]:
 
 # SDRF Upload Tab
 with sub_tabs[0]:
-    st.markdown("#### 🔼 Option 1: Upload SDRF Files Directly")
+    st.markdown("#### 🔼 Upload SDRF Files Directly")
     with st.form("sdrf-upload", clear_on_submit=True):
         files = st.file_uploader(
-            "Upload SDRF files", type=["sdrf", "tsv"],
+            "Upload SDRF", type=["sdrf", "tsv"],
             accept_multiple_files=(st.session_state.location == "local")
         )
         if st.form_submit_button("Add SDRF files", type="primary"):
@@ -63,21 +63,6 @@ with sub_tabs[0]:
                 sdrf_upload.save_uploaded_sdrf(files)
             else:
                 st.warning("Please select SDRF files.")
-
-    st.markdown("---")
-
-    st.markdown("#### 📁 Option 2: Import SDRF Files from Local Folder")
-    if st.session_state.location == "local":
-        if st.button("📁 Browse SDRF folder", disabled=not TK_AVAILABLE):
-            st.session_state["local_sdrf_dir"] = tk_directory_dialog("Select SDRF directory", st.session_state["previous_dir"])
-            st.session_state["previous_dir"] = st.session_state["local_sdrf_dir"]
-
-        local_sdrf_dir = st.text_input("Path to SDRF folder", value=st.session_state.get("local_sdrf_dir", ""))
-        if st.button("Copy SDRF files", disabled=(local_sdrf_dir == "")):
-            use_copy = st.checkbox("Copy files", key="sdrf_copy", value=True)
-            if not use_copy:
-                st.warning("Using original files. Ensure paths remain valid.")
-            sdrf_upload.copy_local_sdrf_files_from_directory(local_sdrf_dir, use_copy)
 
     # Show SDRF files in workspace
     if any(sdrf_dir.iterdir()):
