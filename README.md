@@ -11,15 +11,18 @@ git checkout -b feature/fastapi-nextflow-host origin/feature/fastapi-nextflow-ho
 ```bash
 mkdir ../users
 ```
-### 3. Build the Docker image
+### 3. Place your raw data
+Place the `03COVID.raw` file inside the `../users` folder.
+
+### 4. Build the Docker image
 ```bash
 docker build -t quantms-web .
 ```
-### 4. Run the Docker container
+### 5. Run the Docker container
 ```bash
 docker run -v ../users:/users --network=host quantms-web
 ```
-### 5. Access the web server
+### 6. Access the web server
 ```bash
 http://localhost:8501
 ```
