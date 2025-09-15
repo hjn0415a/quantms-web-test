@@ -88,7 +88,7 @@ with sub_tabs[0]:
 
 # FASTA Upload Tab
 with sub_tabs[1]:
-    st.markdown("#### 🔼 Option 1: Upload FASTA Files Directly")
+    st.markdown("#### Upload FASTA Files Directly")
     with st.form("fasta-upload", clear_on_submit=True):
         files = st.file_uploader(
             "Upload FASTA files", type=["fasta", "fa"],
@@ -99,21 +99,6 @@ with sub_tabs[1]:
                 fasta_upload.save_uploaded_fasta(files)
             else:
                 st.warning("Please select FASTA files.")
-
-    st.markdown("---")
-
-    st.markdown("#### 📁 Option 2: Import FASTA Files from Local Folder")
-    if st.session_state.location == "local":
-        if st.button("📁 Browse FASTA folder", disabled=not TK_AVAILABLE):
-            st.session_state["local_fasta_dir"] = tk_directory_dialog("Select FASTA directory", st.session_state["previous_dir"])
-            st.session_state["previous_dir"] = st.session_state["local_fasta_dir"]
-
-        local_fasta_dir = st.text_input("Path to FASTA folder", value=st.session_state.get("local_fasta_dir", ""))
-        if st.button("Copy FASTA files", disabled=(local_fasta_dir == "")):
-            use_copy = st.checkbox("Copy files", key="fasta_copy", value=True)
-            if not use_copy:
-                st.warning("Using original files. Ensure paths remain valid.")
-            fasta_upload.copy_local_fasta_files_from_directory(local_fasta_dir, use_copy)
 
     # Show FASTA files in workspace
     if any(fasta_dir.iterdir()):
