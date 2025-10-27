@@ -8,7 +8,7 @@ from src.common.common import page_setup
 
 # 페이지 설정
 params = page_setup()
-st.title("🧩 PSM Clean Results")
+st.title("🧹 Psmclean")
 
 # 결과 폴더 경로
 results_dir = Path(st.session_state.workspace, "results")
@@ -48,14 +48,18 @@ def idxml_to_dataframe(idxml_file: str) -> pd.DataFrame:
             })
     df = pd.DataFrame(records)
     if not df.empty:
-        # Charge를 문자열로 변환 후 범주형 지정
+        # 문자열 범주형으로 변환
         df["Charge"] = df["Charge"].astype(str)
         charge_order = sorted(df["Charge"].unique())
         df["Charge"] = pd.Categorical(df["Charge"], categories=charge_order, ordered=True)
+
+        # 🔹 색상 스케일용 숫자형 컬럼 추가 (필요 시 활용)
+        df["Charge_num"] = df["Charge"].astype(int)
+
     return df
 
 # 파일 이름으로 탭 생성
-tabs = st.tabs([f.stem for f in idxml_files])
+tabs = st.tabs([f.stem.split("_")[0] for f in idxml_files])
 
 for tab, idxml_file in zip(tabs, idxml_files):
     with tab:
@@ -77,9 +81,20 @@ for tab, idxml_file in zip(tabs, idxml_files):
                 hover_data=["Sequence", "Score", "Proteins"],
                 title=f"Peptide Identifications (RT vs m/z) - {idxml_file.stem}",
                 category_orders={"Charge": df["Charge"].cat.categories},
-                color_discrete_sequence=px.colors.qualitative.Set1
+                color_discrete_sequence=["#a6cee3", "#1f78b4", "#08519c", "#08306b"]  # 🔹 2→5 점점 진해지는 파랑
             )
-            fig.update_traces(marker=dict(size=8, opacity=0.7))
+
+            # 🔹 점 크기 및 투명도 조정
+            fig.update_traces(marker=dict(size=4, opacity=0.7))
+
+            # 🔹 범례와 레이아웃 정돈
+            fig.update_layout(
+                legend_title_text="Charge",
+                title_font=dict(size=16),
+                coloraxis_colorbar=dict(title="Charge")
+            )
+
+            # 그래프 표시
             st.plotly_chart(fig, use_container_width=True)
 
             # DataFrame 테이블 표시

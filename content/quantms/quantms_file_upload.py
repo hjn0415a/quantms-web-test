@@ -236,7 +236,7 @@ with tabs[2]:
         }
 
         config_args = ' '.join(f'--{k} {v}' for k, v in changed_values.items())
-        config_args += " --skip_post_msstats True"
+        # config_args += " --skip_post_msstats True"
         st.write(config_args)
         
 

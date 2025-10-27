@@ -4,7 +4,7 @@ import streamlit.components.v1 as components
 
 from src.common.common import page_setup
 
-params = page_setup()
+page_setup()
 
 results_dir = Path(st.session_state.workspace, "results")
 html_path = results_dir /"summarypipeline" / "multiqc_report.html"
