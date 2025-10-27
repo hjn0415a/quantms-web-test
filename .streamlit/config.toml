@@ -7,6 +7,7 @@ developmentMode = false
 [server]
 maxUploadSize =  200 #MB
 port = 8501 # should be same as configured in deployment repo
+fileWatcherType = "poll"
 
 [theme]
 # The preset Streamlit theme that your custom theme inherits from. One of "light" or "dark".
