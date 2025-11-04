@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  streamlit:
+    build: .
+    container_name: fastapi-nextflow
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+      - ./users:/users
+    environment:
+      - PORT=8501
