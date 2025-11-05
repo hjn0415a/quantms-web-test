@@ -1,0 +1,12 @@
+Filtering by PSM score (better than 0.1)...
+No 'score:peptide' threshold set. Not filtering by peptide score.
+No 'score:protein' threshold set. Not filtering by protein score.
+No 'score:proteingroup' threshold set. Not filtering by protein group score.
+Removing unreferenced protein hits...
+Before filtering:
+1 identification runs with 65830 proteins,
+45835 spectra identified with 45835 spectrum matches.
+After filtering:
+1 identification runs with 2627 proteins,
+3217 spectra identified with 3217 spectrum matches.
+IDFilter took 9.59 s (wall), 9.58 s (CPU), 0.21 s (system), 9.37 s (user); Peak Memory Usage: 159 MB.

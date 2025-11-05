@@ -10,6 +10,7 @@ import sys
 import importlib.util
 import json
 import streamlit as st
+import requests
 
 class CommandExecutor:
     """
@@ -268,49 +269,24 @@ class CommandExecutor:
             # remove tmp params file
             tmp_params_file.unlink()
 
-    def run_nextflow(input_path: str, database_path: str, profile: str = "docker", workdir: str = ".") -> tuple:
+    def run_nextflow(input_path: str, database_path: str, workdir: str, config_args: str, profile: str = "docker") -> tuple:
         # Convert to absolute path
-        # base_workspace_path = "/workspace"
-
-        input_abs_path = os.path.abspath(input_path)
-        db_abs_path = os.path.abspath(database_path)
-
-        # relative_input_path = input_abs_path.lstrip(os.sep)
-        # relative_db_path = db_abs_path.lstrip(os.sep)
-
-        # workspace_input_path = os.path.join(base_workspace_path, relative_input_path)
-        # workspace_db_path = os.path.join(base_workspace_path, relative_db_path)
-
-        # Construct Nextflow command
-        linux_cmd = (
-            f"nextflow run bigbio/quantms -r dev "
-            f"--input '{input_abs_path}' "
-            f"--database '{db_abs_path}' "
-            f"-profile {profile} "
-            f"--add_decoys "
-            f"--skip_post_msstats "
-        )
-
-        yield ("cmd", linux_cmd)
-
-        process = subprocess.Popen(
-            linux_cmd,
-            shell=True,
-            cwd="/workspace",
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            encoding="utf-8",
-            bufsize=1
-        )
-
-        output_lines = ""
-
-        for line in iter(process.stdout.readline, ''):
-            output_lines += line
-            yield ("log_update", output_lines)
-
-        process.stdout.close()
-        process.wait()
-
-        yield ("returncode", process.returncode)
+        endpoint = "http://localhost:8000/run-nextflow/"
+        data = {
+            "input_path": input_path,
+            "database_path": database_path,
+            "profile": profile,
+            "workdir": str(workdir),
+            "config_args": config_args
+        }
+        with requests.post(endpoint, json=data, stream=True) as r:
+            if r.status_code == 200:
+                for line in r.iter_lines(decode_unicode=True):
+                    if line:
+                        if line.startswith("[Process exited with code"):
+                            returncode = int(line.strip().split()[-1].replace("]", ""))
+                            yield ("returncode", returncode)
+                        else:
+                            yield ("log_update", line)
+            else:
+                yield ("log_update", f"Execution failed: {r.text}")

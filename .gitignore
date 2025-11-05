@@ -1,2 +1,4 @@
-myenv
-results/
+**/__pycache__/
+gdpr_consent/node_modules/
+.nextflow/
+/raw/
