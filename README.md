@@ -1,7 +1,7 @@
 # QuantMS Web 
 
 ## Installation
-### 1. Nextflow Installation
+## 1. Nextflow Installation
 ### Requirements
 Nextflow requires Bash 3.2 (or later) and Java 17 (or later, up to 25) to be installed.
 To install Java with SDKMAN:
@@ -36,7 +36,7 @@ To install Java with SDKMAN:
 > Installation steps are based on the official [Nextflow documentation](https://www.nextflow.io/docs/latest/install.html).
 > 
 
-### 2. Run FastAPI Server
+## 2. Run FastAPI Server
 ```bash
 # Clone the repository
 git clone https://github.com/hjn0415a/quantms-web-test.git
@@ -56,12 +56,12 @@ pip install -r requirements.txt
 # run fastapi server
 uvicorn fastapi_app:app --host 0.0.0.0 --port 8000
 ```
-### 3. Run the Streamlit App
+## 3. Run the Streamlit App
 After opening a new terminal, run the following command from the **project root directory**:
 ```bash
 docker-compose up --build
 ```
-### 4. Access the web server
+## 4. Access the web server
 Open your browser and go to:
 ```bash
 http://localhost:8501
