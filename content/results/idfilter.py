@@ -9,7 +9,7 @@ from src.common.common import page_setup
 # 페이지 설정
 params = page_setup()
 st.title("🔍 Idfilter")
-
+st.info("Here you can explore the PSM scatterplot along with the detailed PSM table.")
 # 결과 폴더 경로
 results_dir = Path(st.session_state.workspace, "results")
 idfilter_dir = results_dir / "idfilter"
@@ -82,7 +82,6 @@ for tab, idxml_file in zip(tabs, idxml_files):
                 y="m/z",
                 color="Charge",
                 hover_data=["Sequence", "Score", "Proteins"],
-                title=f"Peptide Identifications (RT vs m/z) - {idxml_file.stem}",
                 category_orders={"Charge": df["Charge"].cat.categories},
                 color_discrete_sequence=["#a6cee3", "#1f78b4", "#08519c", "#08306b"]  # 🔹 2→5 점점 진해지는 파랑 계열
             )
@@ -93,7 +92,6 @@ for tab, idxml_file in zip(tabs, idxml_files):
             # 🔹 범례와 레이아웃 정돈
             fig.update_layout(
                 legend_title_text="Charge",
-                title_font=dict(size=16),
                 coloraxis_colorbar=dict(title="Charge")
             )
 

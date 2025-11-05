@@ -79,7 +79,6 @@ for tab, idxml_file in zip(tabs, idxml_files):
                 y="m/z",
                 color="Charge",
                 hover_data=["Sequence", "Score", "Proteins"],
-                title=f"Peptide Identifications (RT vs m/z) - {idxml_file.stem}",
                 category_orders={"Charge": df["Charge"].cat.categories},
                 color_discrete_sequence=["#a6cee3", "#1f78b4", "#08519c", "#08306b"]  # 🔹 2→5 점점 진해지는 파랑
             )

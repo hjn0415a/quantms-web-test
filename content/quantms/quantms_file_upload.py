@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import zipfile
 import json
+import os
 
 from src.common.common import (
     page_setup,
@@ -34,7 +35,8 @@ def load_default_values():
 
 params = page_setup()
 
-st.title("QuantMS Analysis Web Interface (Nextflow-Based)")
+st.title("QuantMS Web Workflow 🚀")
+
 
 # Create tabs
 tabs = st.tabs(["📁 File Upload", "⚙️ Configure", "🚀 Run"])
@@ -52,6 +54,10 @@ with tabs[0]:
 
 # SDRF Upload Tab
 with sub_tabs[0]:
+    st.info(
+    "💡 For detailed instructions on how to create an SDRF file, please refer to the documentation:\n\n"
+    "[📄 SDRF File Specification Guide](https://docs.quantms.org/en/latest/formats.html)"
+)
     st.markdown("#### 🔼 Upload SDRF Files Directly")
     with st.form("sdrf-upload", clear_on_submit=True):
         files = st.file_uploader(
@@ -66,7 +72,6 @@ with sub_tabs[0]:
 
     # Show SDRF files in workspace
     if any(sdrf_dir.iterdir()):
-        v_space(2)
         st.markdown("#### SDRF Files in Workspace:")
         df = pd.DataFrame({
             "File Name": [
@@ -88,6 +93,12 @@ with sub_tabs[0]:
 
 # FASTA Upload Tab
 with sub_tabs[1]:
+    st.info(
+    "🔗 **Need a reference FASTA file for a specific species?**\n\n"
+    "You can download curated reference protein sequences directly from UniProt.\n"
+    "Visit the link below and search for the organism name:\n\n"
+    "[🌐 UniProt](https://www.uniprot.org/)"
+    )
     st.markdown("#### Upload FASTA Files Directly")
     with st.form("fasta-upload", clear_on_submit=True):
         files = st.file_uploader(
@@ -124,9 +135,10 @@ with sub_tabs[1]:
 
 # --------- TAB 2: Configure ---------
 with tabs[1]:
+
     st.subheader("Select Nextflow Execution Profile")
     st.selectbox(
-        "Execution Profile", ["docker", "singularity", "conda"],
+        "Execution Profile", ["docker"],
         key="profile"
     )
 

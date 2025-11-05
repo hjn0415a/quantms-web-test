@@ -6,7 +6,7 @@ from src.common.common import page_setup
 page_setup()
 
 st.title("📃 Generate SDRF file")
-
+st.info("💡 This section is for generating an SDRF file if you don't already have one.\n\nIf you already have an SDRF file, please proceed directly to the **Workflow** tab.")
 # Initialize session state
 if "sdrf_rows" not in st.session_state:
     st.session_state["sdrf_rows"] = []
