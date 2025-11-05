@@ -1,0 +1,26 @@
+INFO  [2025-10-17 02:52:40] MSstats - dataProcess function
+INFO  [2025-10-17 02:52:40] Summary method: TMP
+INFO  [2025-10-17 02:52:40] censoredInt: NA
+INFO  [2025-10-17 02:52:40] Logarithm transformation with base 2 is done
+INFO  [2025-10-17 02:52:40] Factorize in columns(GROUP, SUBJECT, GROUP_ORIGINAL, SUBJECT_ORIGINAL, FEATURE, RUN)
+Normalization based on median: OK [2025-10-17 02:52:40] 
+INFO  [2025-10-17 02:52:40] ** Log2 intensities under cutoff = 15.219  were considered as censored missing values.
+INFO  [2025-10-17 02:52:40] ** Log2 intensities = NA were considered as censored missing values.
+INFO  [2025-10-17 02:52:40] ** Use top3 features that have highest average of log2(intensity) across runs.
+INFO  [2025-10-17 02:52:40] 
+ # proteins: 74
+ # peptides per protein: 2-93
+ # features per peptide: 1-1
+INFO  [2025-10-17 02:52:40] 
+                    blood plasma|case blood plasma|control
+             # runs                 3                    3
+    # bioreplicates                 3                    3
+ # tech. replicates                 1                    1
+INFO  [2025-10-17 02:52:40] Some features are completely missing in at least one condition:  
+ RDTMVEDLVVLVR_3_NA_0,
+ MSQLERNIETIINTFHQYSVK_3_NA_0,
+ HLEVDVWVIEPQGLR_3_NA_0,
+ SLEDKTERELLESYIDGR_4_NA_0,
+ TATSEYQTFFNPR_3_NA_0 ...
+INFO  [2025-10-17 02:52:40] == Start the summarization per subplot...
+INFO  [2025-10-17 02:52:42] == Summarization is done.

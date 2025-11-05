@@ -1,0 +1,13 @@
+Sample	MSstats_Condition	MSstats_BioReplicate	Fraction_Group	Fraction	Label
+02COVID			2	1	1
+03COVID			1	1	1
+07COVID			3	1	1
+09COVID			4	1	1
+1	blood plasma|control	1			
+11COVID			5	1	1
+15COVID			6	1	1
+2	blood plasma|control	2			
+3	blood plasma|control	3			
+4	blood plasma|case	4			
+5	blood plasma|case	5			
+6	blood plasma|case	6			
