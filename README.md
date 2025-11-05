@@ -54,7 +54,7 @@ pip install -r requirements.txt
 uvicorn fastapi_app:app --host 0.0.0.0 --port 8000
 ```
 ### 3. Run the Streamlit App
-run the following command from the **project root directory**:
+After opening a new terminal, run the following command from the **project root directory**:
 ```bash
 docker-compose up --build
 ```
