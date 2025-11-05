@@ -1,0 +1,789 @@
+Path of spectra files differ between experimental design (1) and input (2). Using the path of the input file as we know this file exists on the file system: '03COVID.mzML' vs. '/home/fullseeomics/Downloads/work/97/52e86979fd81f23e047045bba3faa3/03COVID.mzML
+Path of spectra files differ between experimental design (1) and input (2). Using the path of the input file as we know this file exists on the file system: '02COVID.mzML' vs. '/home/fullseeomics/Downloads/work/97/52e86979fd81f23e047045bba3faa3/02COVID.mzML
+Path of spectra files differ between experimental design (1) and input (2). Using the path of the input file as we know this file exists on the file system: '07COVID.mzML' vs. '/home/fullseeomics/Downloads/work/97/52e86979fd81f23e047045bba3faa3/07COVID.mzML
+Path of spectra files differ between experimental design (1) and input (2). Using the path of the input file as we know this file exists on the file system: '09COVID.mzML' vs. '/home/fullseeomics/Downloads/work/97/52e86979fd81f23e047045bba3faa3/09COVID.mzML
+Path of spectra files differ between experimental design (1) and input (2). Using the path of the input file as we know this file exists on the file system: '11COVID.mzML' vs. '/home/fullseeomics/Downloads/work/97/52e86979fd81f23e047045bba3faa3/11COVID.mzML
+Path of spectra files differ between experimental design (1) and input (2). Using the path of the input file as we know this file exists on the file system: '15COVID.mzML' vs. '/home/fullseeomics/Downloads/work/97/52e86979fd81f23e047045bba3faa3/15COVID.mzML
+Performing feature intensity-based quantification.
+Progress of 'picking peaks':
+-- done [took 0.31 s (CPU), 0.30 s (Wall)] -- 
+#Spectra that needed to and could be picked by MS-level:
+  MS-level 1: 0 / 10216
+  MS-level 2: 0 / 54471
+Correction to the highest intensity peak failed 57 times because of missing peaks in the MS1. No changes were applied in these cases.
+Info: Corrected 54414 precursors.
+Precursor correction:
+  median        = 2.793064098010292e-10 ppm  MAD = 8.459633108263457e-10
+  median (abs.) = 9.34697902268848e-10 ppm  MAD = 9.34697902268848e-10
+Using prefix decoy string 'DECOY_'
+Info: using 'Trypsin' as enzyme (obtained from idXML) for digestion.
+Peptide identification engine: COMET
+Enzyme: Trypsin
+Info: using 'full' as enzyme specificity (obtained from idXML) for digestion.
+Building trie ... done (0s)
+Compressing trie to BFS format ...
+ done (0s)
+Mapping 2874 peptides to 129280 proteins.
+Searching with up to 3 ambiguous amino acid(s) and 0 mismatch(es)!
+Merge took: 0.00 s (wall), 0.01 s (CPU), 0.00 s (system), 0.01 s (user)
+Memory usage (Aho-Corasick): 9 MB (working set delta), 0 MB (peak working set delta)
+
+
+Aho-Corasick done:
+  found 8902 hits for 2874 of 2874 peptides.
+Peptide hits passing enzyme filter: 8902
+     ... rejected by enzyme filter: 52
+-----------------------------------
+Peptide statistics
+
+  unmatched                : 0 (0 %)
+  target/decoy:
+    match to target DB only: 2609 (90 %)
+    match to decoy DB only : 260 (9 %)
+    match to both          : 5 (0 %)
+
+  mapping to proteins:
+    no match (to 0 protein)         : 0
+    unique match (to 1 protein)     : 742
+    non-unique match (to >1 protein): 2132
+-----------------------------------
+Protein statistics
+
+  total proteins searched: 129280
+  matched proteins       : 2440 (2440 new)
+  matched target proteins: 1562 (64 %)
+  matched decoy proteins : 878 (35 %)
+  orphaned proteins      : 22 (all removed)
+-----------------------------------
+Progress of 'mass trace detection':
+  1.63 %               -- done [took 0.51 s (CPU), 0.52 s (Wall)] -- 
+Median chromatographic FWHM: 1.2072
+Adding offset peptides as quant. decoys.
+RT window size calculated as 24.144 seconds.
+Preparing mapping of peptide data...
+#Seeds without RT and m/z overlap with identified peptides added: 0
+#Offset peptides without RT and m/z overlap with other peptides added: 2874
+Progress of 'Creating assay library and extracting chromatograms':
+Warning: Cannot integrate if spectrum is empty
+  100.00 %               -- done [took 04:36 m (CPU), 24.75 s (Wall)] -- 
+Found 14873 feature candidates in total.
+2034 features left after filtering.
+Model fitting: 583 successes, 1451 failures
+Imputing model failures with a linear model based on log(rawIntensities). Slope: 0.96786, Intercept: 0.88198
+
+Summary statistics (counting distinct peptides including PTMs):
+1989 peptides identified (1989 internal, 0 additional external)
+1446 peptides with features (1446 internal, 0 external)
+543 peptides without features (543 internal, 0 external)
+
+Training SVM on 1557 observations. Classes:
+- '0.0': 557 observations
+- '1.0': 1000 observations
+Optimizing parameters.
+Running cross-validation to find optimal parameters...
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+Best cross-validation performance: 0.642261 (ties: 7)
+Best SVM parameters: log2_C = 11, log2_gamma = 0, log2_p = -3.32193
+... done.
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+Number of support vectors in the final model: 1132
+Predicting class probabilities:
+Removed quant. targets with id (features with id) because of low quantification score: 0 of 1477	 ( 0% )
+Removed quant. targets with id (features without id) because of low quantification score: 0 of 0	 ( -nan% )
+Removed quant. decoys (offset features) because of low quantification score: 0 of 557	 ( 0% )
+Progress of 'picking peaks':
+-- done [took 0.13 s (CPU), 0.14 s (Wall)] -- 
+#Spectra that needed to and could be picked by MS-level:
+  MS-level 1: 0 / 10244
+  MS-level 2: 0 / 55647
+Correction to the highest intensity peak failed 58 times because of missing peaks in the MS1. No changes were applied in these cases.
+Info: Corrected 55589 precursors.
+Precursor correction:
+  median        = 2.739257559825623e-10 ppm  MAD = 7.854576777004703e-10
+  median (abs.) = 8.740978249995559e-10 ppm  MAD = 8.740978249995559e-10
+Using prefix decoy string 'DECOY_'
+Info: using 'Trypsin' as enzyme (obtained from idXML) for digestion.
+Peptide identification engine: COMET
+Enzyme: Trypsin
+Info: using 'full' as enzyme specificity (obtained from idXML) for digestion.
+Building trie ... done (0s)
+Compressing trie to BFS format ...
+ done (0s)
+Mapping 3097 peptides to 129280 proteins.
+Searching with up to 3 ambiguous amino acid(s) and 0 mismatch(es)!
+Merge took: 0.00 s (wall), 0.02 s (CPU), 0.00 s (system), 0.02 s (user)
+Memory usage (Aho-Corasick): 0 MB (working set delta), 0 MB (peak working set delta)
+
+
+Aho-Corasick done:
+  found 9450 hits for 3097 of 3097 peptides.
+Peptide hits passing enzyme filter: 9450
+     ... rejected by enzyme filter: 71
+-----------------------------------
+Peptide statistics
+
+  unmatched                : 0 (0 %)
+  target/decoy:
+    match to target DB only: 2815 (90 %)
+    match to decoy DB only : 280 (9 %)
+    match to both          : 2 (0 %)
+
+  mapping to proteins:
+    no match (to 0 protein)         : 0
+    unique match (to 1 protein)     : 827
+    non-unique match (to >1 protein): 2270
+-----------------------------------
+Protein statistics
+
+  total proteins searched: 129280
+  matched proteins       : 2567 (2567 new)
+  matched target proteins: 1679 (65 %)
+  matched decoy proteins : 888 (34 %)
+  orphaned proteins      : 19 (all removed)
+-----------------------------------
+Progress of 'mass trace detection':
+  1.59 %               -- done [took 0.47 s (CPU), 0.48 s (Wall)] -- 
+Median chromatographic FWHM: 1.18301
+Adding offset peptides as quant. decoys.
+RT window size calculated as 23.6603 seconds.
+Preparing mapping of peptide data...
+#Seeds without RT and m/z overlap with identified peptides added: 0
+#Offset peptides without RT and m/z overlap with other peptides added: 3097
+Progress of 'Creating assay library and extracting chromatograms':
+  100.00 %               -- done [took 07:11 m (CPU), 37.47 s (Wall)] -- 
+Found 16382 feature candidates in total.
+2557 features left after filtering.
+Model fitting: 1206 successes, 1351 failures
+Imputing model failures with a linear model based on log(rawIntensities). Slope: 0.965897, Intercept: 0.695019
+
+Summary statistics (counting distinct peptides including PTMs):
+2117 peptides identified (2117 internal, 0 additional external)
+1887 peptides with features (1887 internal, 0 external)
+230 peptides without features (230 internal, 0 external)
+
+Training SVM on 1634 observations. Classes:
+- '0.0': 634 observations
+- '1.0': 1000 observations
+Optimizing parameters.
+Running cross-validation to find optimal parameters...
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+Best cross-validation performance: 0.830477 (ties: 1)
+Best SVM parameters: log2_C = 11, log2_gamma = 0, log2_p = -3.32193
+... done.
+Number of support vectors in the final model: 602
+Predicting class probabilities:
+Removed quant. targets with id (features with id) because of low quantification score: 0 of 1923	 ( 0% )
+Removed quant. targets with id (features without id) because of low quantification score: 0 of 0	 ( -nan% )
+Removed quant. decoys (offset features) because of low quantification score: 0 of 634	 ( 0% )
+Progress of 'picking peaks':
+  100.00 %               -- done [took 0.15 s (CPU), 0.15 s (Wall)] -- 
+#Spectra that needed to and could be picked by MS-level:
+  MS-level 1: 0 / 10276
+  MS-level 2: 0 / 55030
+Correction to the highest intensity peak failed 33 times because of missing peaks in the MS1. No changes were applied in these cases.
+Info: Corrected 54997 precursors.
+Precursor correction:
+  median        = 2.77040837877397e-10 ppm  MAD = 7.958270671833616e-10
+  median (abs.) = 8.774471031220113e-10 ppm  MAD = 8.774471031220113e-10
+Using prefix decoy string 'DECOY_'
+Info: using 'Trypsin' as enzyme (obtained from idXML) for digestion.
+Peptide identification engine: COMET
+Enzyme: Trypsin
+Info: using 'full' as enzyme specificity (obtained from idXML) for digestion.
+Building trie ... done (0s)
+Compressing trie to BFS format ...
+ done (0s)
+Mapping 3324 peptides to 129280 proteins.
+Searching with up to 3 ambiguous amino acid(s) and 0 mismatch(es)!
+Merge took: 0.00 s (wall), 0.01 s (CPU), 0.00 s (system), 0.01 s (user)
+Memory usage (Aho-Corasick): 0 MB (working set delta), 0 MB (peak working set delta)
+
+
+Aho-Corasick done:
+  found 10346 hits for 3324 of 3324 peptides.
+Peptide hits passing enzyme filter: 10346
+     ... rejected by enzyme filter: 78
+-----------------------------------
+Peptide statistics
+
+  unmatched                : 0 (0 %)
+  target/decoy:
+    match to target DB only: 3022 (90 %)
+    match to decoy DB only : 301 (9 %)
+    match to both          : 1 (0 %)
+
+  mapping to proteins:
+    no match (to 0 protein)         : 0
+    unique match (to 1 protein)     : 861
+    non-unique match (to >1 protein): 2463
+-----------------------------------
+Protein statistics
+
+  total proteins searched: 129280
+  matched proteins       : 2556 (2556 new)
+  matched target proteins: 1650 (64 %)
+  matched decoy proteins : 906 (35 %)
+  orphaned proteins      : 16 (all removed)
+-----------------------------------
+Progress of 'mass trace detection':
+  1.04 %               -- done [took 0.46 s (CPU), 0.46 s (Wall)] -- 
+Median chromatographic FWHM: 1.32979
+Adding offset peptides as quant. decoys.
+RT window size calculated as 26.5959 seconds.
+Preparing mapping of peptide data...
+#Seeds without RT and m/z overlap with identified peptides added: 0
+#Offset peptides without RT and m/z overlap with other peptides added: 3324
+Progress of 'Creating assay library and extracting chromatograms':
+  100.00 %               -- done [took 13:27 m (CPU), 01:09 m (Wall)] -- 
+Found 15935 feature candidates in total.
+2794 features left after filtering.
+Model fitting: 1558 successes, 1236 failures
+Imputing model failures with a linear model based on log(rawIntensities). Slope: 0.934548, Intercept: 1.15066
+
+Summary statistics (counting distinct peptides including PTMs):
+2239 peptides identified (2239 internal, 0 additional external)
+2048 peptides with features (2048 internal, 0 external)
+191 peptides without features (191 internal, 0 external)
+
+Training SVM on 1695 observations. Classes:
+- '0.0': 695 observations
+- '1.0': 1000 observations
+Optimizing parameters.
+Running cross-validation to find optimal parameters...
+
+WARNING: reaching max number of iterations
+Best cross-validation performance: 0.857817 (ties: 2)
+Best SVM parameters: log2_C = 15, log2_gamma = 0, log2_p = -3.32193
+... done.
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+Number of support vectors in the final model: 540
+Predicting class probabilities:
+Removed quant. targets with id (features with id) because of low quantification score: 30 of 2099	 ( 1.42925% )
+Removed quant. targets with id (features without id) because of low quantification score: 0 of 0	 ( -nan% )
+Removed quant. decoys (offset features) because of low quantification score: 0 of 695	 ( 0% )
+Progress of 'picking peaks':
+-- done [took 0.15 s (CPU), 0.14 s (Wall)] -- 
+#Spectra that needed to and could be picked by MS-level:
+  MS-level 1: 0 / 10300
+  MS-level 2: 0 / 51764
+Correction to the highest intensity peak failed 49 times because of missing peaks in the MS1. No changes were applied in these cases.
+Info: Corrected 51715 precursors.
+Precursor correction:
+  median        = 2.791726177105683e-10 ppm  MAD = 8.228095231280189e-10
+  median (abs.) = 8.897083113206705e-10 ppm  MAD = 8.897083113206705e-10
+Using prefix decoy string 'DECOY_'
+Info: using 'Trypsin' as enzyme (obtained from idXML) for digestion.
+Peptide identification engine: COMET
+Enzyme: Trypsin
+Info: using 'full' as enzyme specificity (obtained from idXML) for digestion.
+Building trie ... done (0s)
+Compressing trie to BFS format ...
+ done (0s)
+Mapping 3217 peptides to 129280 proteins.
+Searching with up to 3 ambiguous amino acid(s) and 0 mismatch(es)!
+Merge took: 0.00 s (wall), 0.02 s (CPU), 0.00 s (system), 0.02 s (user)
+Memory usage (Aho-Corasick): 0 MB (working set delta), 0 MB (peak working set delta)
+
+
+Aho-Corasick done:
+  found 9966 hits for 3217 of 3217 peptides.
+Peptide hits passing enzyme filter: 9966
+     ... rejected by enzyme filter: 102
+-----------------------------------
+Peptide statistics
+
+  unmatched                : 0 (0 %)
+  target/decoy:
+    match to target DB only: 2923 (90 %)
+    match to decoy DB only : 291 (9 %)
+    match to both          : 3 (0 %)
+
+  mapping to proteins:
+    no match (to 0 protein)         : 0
+    unique match (to 1 protein)     : 831
+    non-unique match (to >1 protein): 2386
+-----------------------------------
+Protein statistics
+
+  total proteins searched: 129280
+  matched proteins       : 2569 (2569 new)
+  matched target proteins: 1617 (62 %)
+  matched decoy proteins : 952 (37 %)
+  orphaned proteins      : 32 (all removed)
+-----------------------------------
+Progress of 'mass trace detection':
+-- done [took 0.54 s (CPU), 0.54 s (Wall)] -- 
+Median chromatographic FWHM: 1.57718
+Adding offset peptides as quant. decoys.
+RT window size calculated as 31.5436 seconds.
+Preparing mapping of peptide data...
+#Seeds without RT and m/z overlap with identified peptides added: 0
+#Offset peptides without RT and m/z overlap with other peptides added: 3217
+Progress of 'Creating assay library and extracting chromatograms':
+  100.00 %               -- done [took 14:03 m (CPU), 01:11 m (Wall)] -- 
+Found 14479 feature candidates in total.
+2632 features left after filtering.
+Model fitting: 1355 successes, 1277 failures
+Imputing model failures with a linear model based on log(rawIntensities). Slope: 0.941488, Intercept: 1.30647
+
+Summary statistics (counting distinct peptides including PTMs):
+2160 peptides identified (2160 internal, 0 additional external)
+1938 peptides with features (1938 internal, 0 external)
+222 peptides without features (222 internal, 0 external)
+
+Training SVM on 1641 observations. Classes:
+- '0.0': 641 observations
+- '1.0': 1000 observations
+Optimizing parameters.
+Running cross-validation to find optimal parameters...
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+Best cross-validation performance: 0.812919 (ties: 2)
+Best SVM parameters: log2_C = 15, log2_gamma = 0, log2_p = -3.32193
+... done.
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+Number of support vectors in the final model: 655
+Predicting class probabilities:
+Removed quant. targets with id (features with id) because of low quantification score: 0 of 1991	 ( 0% )
+Removed quant. targets with id (features without id) because of low quantification score: 0 of 0	 ( -nan% )
+Removed quant. decoys (offset features) because of low quantification score: 0 of 641	 ( 0% )
+Progress of 'picking peaks':
+-- done [took 0.14 s (CPU), 0.15 s (Wall)] -- 
+#Spectra that needed to and could be picked by MS-level:
+  MS-level 1: 0 / 10240
+  MS-level 2: 0 / 53989
+Correction to the highest intensity peak failed 57 times because of missing peaks in the MS1. No changes were applied in these cases.
+Info: Corrected 53932 precursors.
+Precursor correction:
+  median        = 2.811806245819867e-10 ppm  MAD = 8.154194577142011e-10
+  median (abs.) = 8.956574932927213e-10 ppm  MAD = 8.956574932927213e-10
+Using prefix decoy string 'DECOY_'
+Info: using 'Trypsin' as enzyme (obtained from idXML) for digestion.
+Peptide identification engine: COMET
+Enzyme: Trypsin
+Info: using 'full' as enzyme specificity (obtained from idXML) for digestion.
+Building trie ... done (0s)
+Compressing trie to BFS format ...
+ done (0s)
+Mapping 2895 peptides to 129280 proteins.
+Searching with up to 3 ambiguous amino acid(s) and 0 mismatch(es)!
+Merge took: 0.00 s (wall), 0.02 s (CPU), 0.00 s (system), 0.02 s (user)
+Memory usage (Aho-Corasick): 0 MB (working set delta), 0 MB (peak working set delta)
+
+
+Aho-Corasick done:
+  found 9238 hits for 2895 of 2895 peptides.
+Peptide hits passing enzyme filter: 9238
+     ... rejected by enzyme filter: 93
+-----------------------------------
+Peptide statistics
+
+  unmatched                : 0 (0 %)
+  target/decoy:
+    match to target DB only: 2631 (90 %)
+    match to decoy DB only : 262 (9 %)
+    match to both          : 2 (0 %)
+
+  mapping to proteins:
+    no match (to 0 protein)         : 0
+    unique match (to 1 protein)     : 710
+    non-unique match (to >1 protein): 2185
+-----------------------------------
+Protein statistics
+
+  total proteins searched: 129280
+  matched proteins       : 2460 (2460 new)
+  matched target proteins: 1726 (70 %)
+  matched decoy proteins : 734 (29 %)
+  orphaned proteins      : 31 (all removed)
+-----------------------------------
+Progress of 'mass trace detection':
+  0.46 %               -- done [took 0.66 s (CPU), 0.66 s (Wall)] -- 
+Median chromatographic FWHM: 1.60633
+Adding offset peptides as quant. decoys.
+RT window size calculated as 32.1265 seconds.
+Preparing mapping of peptide data...
+#Seeds without RT and m/z overlap with identified peptides added: 0
+#Offset peptides without RT and m/z overlap with other peptides added: 2895
+Progress of 'Creating assay library and extracting chromatograms':
+  100.00 %               -- done [took 09:58 m (CPU), 51.29 s (Wall)] -- 
+Found 14696 feature candidates in total.
+2536 features left after filtering.
+Model fitting: 1250 successes, 1286 failures
+Imputing model failures with a linear model based on log(rawIntensities). Slope: 0.928302, Intercept: 1.52233
+
+Summary statistics (counting distinct peptides including PTMs):
+2010 peptides identified (2010 internal, 0 additional external)
+1790 peptides with features (1790 internal, 0 external)
+220 peptides without features (220 internal, 0 external)
+
+Training SVM on 1709 observations. Classes:
+- '0.0': 709 observations
+- '1.0': 1000 observations
+Optimizing parameters.
+Running cross-validation to find optimal parameters...
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+Best cross-validation performance: 0.781744 (ties: 2)
+Best SVM parameters: log2_C = 15, log2_gamma = 0, log2_p = -3.32193
+... done.
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+Number of support vectors in the final model: 816
+Predicting class probabilities:
+Removed quant. targets with id (features with id) because of low quantification score: 0 of 1827	 ( 0% )
+Removed quant. targets with id (features without id) because of low quantification score: 0 of 0	 ( -nan% )
+Removed quant. decoys (offset features) because of low quantification score: 0 of 709	 ( 0% )
+Progress of 'picking peaks':
+-- done [took 0.15 s (CPU), 0.15 s (Wall)] -- 
+#Spectra that needed to and could be picked by MS-level:
+  MS-level 1: 0 / 10228
+  MS-level 2: 0 / 54363
+Correction to the highest intensity peak failed 53 times because of missing peaks in the MS1. No changes were applied in these cases.
+Info: Corrected 54310 precursors.
+Precursor correction:
+  median        = 2.775990616977987e-10 ppm  MAD = 9.312712858209148e-10
+  median (abs.) = 9.916651888652261e-10 ppm  MAD = 9.916651888652261e-10
+Using prefix decoy string 'DECOY_'
+Info: using 'Trypsin' as enzyme (obtained from idXML) for digestion.
+Peptide identification engine: COMET
+Enzyme: Trypsin
+Info: using 'full' as enzyme specificity (obtained from idXML) for digestion.
+Building trie ... done (0s)
+Compressing trie to BFS format ...
+ done (0s)
+Mapping 2931 peptides to 129280 proteins.
+Searching with up to 3 ambiguous amino acid(s) and 0 mismatch(es)!
+Merge took: 0.00 s (wall), 0.01 s (CPU), 0.00 s (system), 0.01 s (user)
+Memory usage (Aho-Corasick): 0 MB (working set delta), 0 MB (peak working set delta)
+
+
+Aho-Corasick done:
+  found 8905 hits for 2931 of 2931 peptides.
+Peptide hits passing enzyme filter: 8905
+     ... rejected by enzyme filter: 74
+-----------------------------------
+Peptide statistics
+
+  unmatched                : 0 (0 %)
+  target/decoy:
+    match to target DB only: 2661 (90 %)
+    match to decoy DB only : 265 (9 %)
+    match to both          : 5 (0 %)
+
+  mapping to proteins:
+    no match (to 0 protein)         : 0
+    unique match (to 1 protein)     : 717
+    non-unique match (to >1 protein): 2214
+-----------------------------------
+Protein statistics
+
+  total proteins searched: 129280
+  matched proteins       : 2311 (2311 new)
+  matched target proteins: 1432 (61 %)
+  matched decoy proteins : 879 (38 %)
+  orphaned proteins      : 13 (all removed)
+-----------------------------------
+Progress of 'mass trace detection':
+-- done [took 0.62 s (CPU), 0.62 s (Wall)] -- 
+Median chromatographic FWHM: 1.36094
+Adding offset peptides as quant. decoys.
+RT window size calculated as 27.2187 seconds.
+Preparing mapping of peptide data...
+#Seeds without RT and m/z overlap with identified peptides added: 0
+#Offset peptides without RT and m/z overlap with other peptides added: 2931
+Progress of 'Creating assay library and extracting chromatograms':
+  100.00 %               -- done [took 05:19 m (CPU), 28.06 s (Wall)] -- 
+Found 15022 feature candidates in total.
+2431 features left after filtering.
+Model fitting: 1078 successes, 1353 failures
+Imputing model failures with a linear model based on log(rawIntensities). Slope: 0.960369, Intercept: 0.93797
+
+Summary statistics (counting distinct peptides including PTMs):
+2078 peptides identified (2078 internal, 0 additional external)
+1804 peptides with features (1804 internal, 0 external)
+274 peptides without features (274 internal, 0 external)
+
+Training SVM on 1598 observations. Classes:
+- '0.0': 598 observations
+- '1.0': 1000 observations
+Optimizing parameters.
+Running cross-validation to find optimal parameters...
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+
+WARNING: reaching max number of iterations
+Best cross-validation performance: 0.767835 (ties: 1)
+Best SVM parameters: log2_C = 7, log2_gamma = 0, log2_p = -3.32193
+... done.
+Number of support vectors in the final model: 791
+Predicting class probabilities:
+Removed quant. targets with id (features with id) because of low quantification score: 0 of 1833	 ( 0% )
+Removed quant. targets with id (features without id) because of low quantification score: 0 of 0	 ( -nan% )
+Removed quant. decoys (offset features) because of low quantification score: 0 of 598	 ( 0% )
+ID files reference same names as spectra files.
+Progress of 'aligning maps':
+
+Alignment based on:
+- 1250 data points for sample 1 (4 outliers removed)
+- 1603 data points for sample 2 (4 outliers removed)
+- 1710 data points for sample 3 (3 outliers removed)
+- 1653 data points for sample 4 (2 outliers removed)
+- 1532 data points for sample 5 (4 outliers removed)
+- 1554 data points for sample 6
+
+-- done [took 0.05 s (CPU), 0.05 s (Wall)] -- 
+Alignment differences (second) for percentiles (before & after): 
+100%	99%	95%	90%	75%	50%	25%
+before alignment:
+317	125	54	19	3	1	0	
+after alignment:
+313	124	55	17	5	2	1	
+Alignment differences (second) for percentiles (before & after): 
+100%	99%	95%	90%	75%	50%	25%
+before alignment:
+297	93	27	8	4	2	0	
+after alignment:
+295	95	28	7	3	2	0	
+Alignment differences (second) for percentiles (before & after): 
+100%	99%	95%	90%	75%	50%	25%
+before alignment:
+317	89	29	12	7	4	2	
+after alignment:
+321	89	27	8	4	2	1	
+Alignment differences (second) for percentiles (before & after): 
+100%	99%	95%	90%	75%	50%	25%
+before alignment:
+307	81	25	11	7	4	1	
+after alignment:
+308	79	24	8	4	2	1	
+Alignment differences (second) for percentiles (before & after): 
+100%	99%	95%	90%	75%	50%	25%
+before alignment:
+262	89	30	12	7	4	2	
+after alignment:
+266	85	29	7	4	2	1	
+Alignment differences (second) for percentiles (before & after): 
+100%	99%	95%	90%	75%	50%	25%
+before alignment:
+270	90	24	6	3	1	0	
+after alignment:
+Max alignment difference (seconds): 321.772
+<270	90	24	6	3	1	0	> occurred 2 times
+Calculating RT linking tolerance bins...
+RT_bin_start, Tolerance
+66.8674, 20
+262.496, 20
+272.734, 20
+297.028, 20
+316.487, 20
+338.943, 20
+358.879, 20
+379.885, 20
+405.324, 20
+438.773, 20
+466.944, 20
+485.918, 20
+509.531, 20
+528.195, 20
+554.556, 20
+566.249, 20
+581.104, 20
+600.897, 20
+618.36, 20
+633.172, 20
+642.793, 20
+660.904, 20
+682.266, 20
+701.134, 20
+715.87, 20
+742.056, 20
+757.146, 20
+780.299, 20
+800.29, 20
+826.932, 20
+844.714, 20
+869.242, 20
+886.592, 20
+908.798, 20
+924.677, 20
+949.25, 20
+965.546, 20
+978.744, 20
+989.976, 20
+1009.64, 20
+1030.52, 20
+1049.47, 20
+1064.16, 20
+1083.19, 20
+1107.1, 20
+1120.73, 20
+1130.68, 20
+1153.55, 20
+1178.35, 20
+1196.09, 20
+1207.29, 20
+1225.39, 20
+1231.76, 20
+1242.35, 20
+1272.47, 20
+1296.05, 20
+1307.48, 20
+1321.77, 20
+1340.12, 20
+1358.52, 20
+1375.58, 20
+1392.5, 20
+1404.69, 20
+1420.5, 20
+1445.13, 20
+1459.15, 20
+1486.53, 20
+1507.96, 20
+1524.23, 20
+1543.02, 20
+1552.28, 20
+1566.66, 20
+1589.19, 45.701
+1600.38, 20
+1622.82, 20
+1641.5, 20
+1663.62, 20
+1679.86, 20
+1699.66, 20
+1715.3, 20
+1728.52, 20
+1751.73, 20
+1762.11, 20
+1786.96, 20
+1819.94, 20
+1835.03, 20
+1861.21, 20
+1879.74, 20
+1902.35, 20
+1923.22, 20
+1942.96, 20
+1961.47, 20
+1987.39, 80.5018
+2014.62, 20
+2031.36, 20
+2059.57, 20
+2088.85, 20
+2114.29, 20
+2138.1, 20
+2158.53, 20
+2180.29, 20
+2199.06, 20
+2227.8, 20
+2254.92, 20
+2276.9, 20
+2320.72, 20
+2350.12, 20
+2386.37, 20
+2423.13, 20
+2448.27, 20
+2469.27, 20.3052
+2508.73, 20
+2541.86, 20
+2600.22, 20
+2642.81, 20
+2673.75, 122.569
+2699.36, 20
+2735.71, 20
+2785.23, 20
+2821.05, 20
+2886.74, 20
+2990.64, 20
+3044.53, 20
+3137.57, 20
+3220.91, 20
+3409.31, 26.2325
+3854.32, 20
+Progress of 'Linking features':
+-- done [took 0.25 s (CPU), 0.25 s (Wall)] -- 
+Size of consensus fraction: 4126
+Building graph on 4126 features, 7188 unassigned spectra (if chosen) and 7321 proteins.
+Progress of 'Building graph...':
+-- done [took 0.06 s (CPU), 0.07 s (Wall)] -- 
+Progress of 'Annotating indistinguishable proteins...':
+-- done [took 0.05 s (CPU), 0.00 s (Wall)] -- 
+Found 2917 connected components.
+Quantifying peptides...
+ConsensusXMLFile::store():  found 1 invalid unique ids
+MSstats run 1 corresponds to OpenMS fraction group 1
+MSstats run 2 corresponds to OpenMS fraction group 2
+MSstats run 3 corresponds to OpenMS fraction group 3
+MSstats run 4 corresponds to OpenMS fraction group 4
+MSstats run 5 corresponds to OpenMS fraction group 5
+MSstats run 6 corresponds to OpenMS fraction group 6
+ProteomicsLFQ took 16:18 m (wall), 01:23:45 h (CPU), 10.09 s (system), 01:23:34 h (user); Peak Memory Usage: 2181 MB.
+<Warning: Cannot integrate if spectrum is empty> occurred 493800 times

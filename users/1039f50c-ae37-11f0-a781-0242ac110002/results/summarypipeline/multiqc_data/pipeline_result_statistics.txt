@@ -1,0 +1,13 @@
+Sample	MSstats_Condition	Fraction	#Peptide IDs	#Unambiguous Peptide IDs	#Modified Peptide IDs	#Protein (group) IDs
+02COVID		1	1353	695	0	299
+03COVID		1	1310	654	0	293
+07COVID		1	1426	721	0	311
+09COVID		1	1452	738	0	297
+1	blood plasma|control					
+11COVID		1	1273	619	0	276
+15COVID		1	1353	675	0	293
+2	blood plasma|control					
+3	blood plasma|control					
+4	blood plasma|case					
+5	blood plasma|case					
+6	blood plasma|case					

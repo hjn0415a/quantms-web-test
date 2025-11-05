@@ -1,0 +1,3 @@
+Sample	2	3	4	5	6
+identified_spectra	4036.0	5396.0	1151.0	194.0	nan
+unidentified_spectra	78214.0	149653.0	62316.0	19266.0	5038.0

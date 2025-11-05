@@ -1,0 +1,9 @@
+INFO  [2025-10-17 02:52:42] MSstats - groupComparison function
+INFO  [2025-10-17 02:52:42] labeled = FALSE
+INFO  [2025-10-17 02:52:42] scopeOfBioReplication = expanded
+INFO  [2025-10-17 02:52:42] Case control design of experiment - okay
+INFO  [2025-10-17 02:52:42] == Start to test and get inference in whole plot
+INFO  [2025-10-17 02:52:43] == Comparisons for all proteins are done.
+INFO  [2025-10-17 02:52:43] The output for groupComparison is ready.
+INFO  [2025-10-17 02:52:43] MSstats - groupComparisonPlots function
+INFO  [2025-10-17 02:52:55] MSstats - groupComparisonPlots function
