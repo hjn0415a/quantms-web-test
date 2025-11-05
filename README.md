@@ -32,6 +32,9 @@ To install Java with SDKMAN:
     ```bash
     nextflow info
     ```
+    
+> Installation steps are based on the official [Nextflow documentation](https://www.nextflow.io/docs/latest/install.html).
+> 
 
 ### 2. Run FastAPI Server
 ```bash
