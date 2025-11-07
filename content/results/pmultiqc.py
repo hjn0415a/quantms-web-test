@@ -1,42 +1,67 @@
 from pathlib import Path
 import streamlit as st
-from streamlit.components.v1 import html
 from src.common.common import page_setup
 
-page_setup()
-st.title("📊 Pmultiqc")
+# 페이지 설정
+params = page_setup()
+
+# 제목 (subheader 크기로, 중앙 정렬 + 간격 추가)
+st.markdown(
+    """
+    <h2 style='font-weight:700; margin-bottom:40px;'>
+        📊 MultiQC Plots Summary
+    </h2>
+    """,
+    unsafe_allow_html=True
+)
 
 results_dir = Path(st.session_state.workspace, "results")
-html_path = results_dir / "summarypipeline" / "multiqc_report.html"
+png_dir = results_dir / "summarypipeline" / "multiqc_plots" / "png"
 
-if html_path.exists():
-    html_content = html_path.read_text(encoding="utf-8")
+# 상단 2열로 출력할 파일 (Heatmap + ms1_tic)
+overview_files = [
+    "Heatmap.png",
+    "ms1_tic.png"
+]
 
-    base_dir = html_path.parent.as_posix()
-    html_content = html_content.replace(
-        "<head>",
-        f"<head><base href='file://{base_dir}/' target='_self'>"
-    )
+# 하단 2열로 출력할 파일 (상세 분포)
+detailed_files = [
+    "peak_intensity_distribution-cnt.png",
+    "peak_intensity_distribution-pct.png",
+    "peaks_per_ms2-cnt.png",
+    "peaks_per_ms2-pct.png",
+]
 
-    block_nav = """
-    <script>
-    document.addEventListener('click', function(e){
-        const t = e.target;
-        if(t.tagName === 'A'){
-            const href = t.getAttribute('href');
-            if(href && href.startsWith('#')){
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if(target){
-                    target.scrollIntoView();
-                }
-            }
-        }
-    }, true);
-    </script>
-    """
+# --- Overview section ---
+overview_cols = st.columns(2)
+for i, png_file in enumerate(overview_files):
+    img_path = png_dir / png_file
+    if img_path.exists():
+        display_name = png_file.replace(".png", "")  # 확장자 제거
+        with overview_cols[i % 2]:
+            st.markdown(
+                f"<h5 style='text-align:center; font-weight:700; font-size:22px;'>{display_name}</h5>",
+                unsafe_allow_html=True
+            )
+            st.image(str(img_path), use_container_width=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+    else:
+        overview_cols[i % 2].warning(f"{png_file} not found.")
 
-    html(html_content + block_nav, height=900, scrolling=True)
+st.markdown("<hr style='margin: 30px 0;'>", unsafe_allow_html=True)
 
-else:
-    st.warning("MultiQC report not found. Please run the analysis first.")
+# --- Detailed section ---
+detailed_cols = st.columns(2)
+for i, png_file in enumerate(detailed_files):
+    img_path = png_dir / png_file
+    if img_path.exists():
+        display_name = png_file.replace(".png", "")  # 확장자 제거
+        with detailed_cols[i % 2]:
+            st.markdown(
+                f"<h5 style='text-align:center; font-weight:700; font-size:20px;'>{display_name}</h5>",
+                unsafe_allow_html=True
+            )
+            st.image(str(img_path), use_container_width=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+    else:
+        detailed_cols[i % 2].warning(f"{png_file} not found.")
