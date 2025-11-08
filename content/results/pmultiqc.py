@@ -9,7 +9,7 @@ params = page_setup()
 st.markdown(
     """
     <h2 style='font-weight:700; margin-bottom:40px;'>
-        📊 MultiQC Plots Summary
+        📊 Quality Control Report
     </h2>
     """,
     unsafe_allow_html=True
