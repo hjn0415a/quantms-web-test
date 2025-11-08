@@ -8,7 +8,7 @@ from src.common.common import page_setup
 
 # 페이지 설정
 params = page_setup()
-st.title("🔍 Idfilter")
+st.title("🔍 Peptide Spectrum Matches")
 st.info("Here you can explore the PSM scatterplot along with the detailed PSM table.")
 # 결과 폴더 경로
 results_dir = Path(st.session_state.workspace, "results")
