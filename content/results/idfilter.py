@@ -80,9 +80,9 @@ for tab, idxml_file in zip(tabs, idxml_files):
                 df,
                 x="RT",
                 y="m/z",
-                color="Charge",
+                color="Score",
                 hover_data=["Sequence", "Score", "Proteins"],
-                category_orders={"Charge": df["Charge"].cat.categories},
+                #category_orders={"Charge": df["Charge"].cat.categories},
                 color_discrete_sequence=["#a6cee3", "#1f78b4", "#08519c", "#08306b"]  # 🔹 2→5 점점 진해지는 파랑 계열
             )
 
@@ -91,8 +91,8 @@ for tab, idxml_file in zip(tabs, idxml_files):
 
             # 🔹 범례와 레이아웃 정돈
             fig.update_layout(
-                legend_title_text="Charge",
-                coloraxis_colorbar=dict(title="Charge")
+                legend_title_text="Score",
+                coloraxis_colorbar=dict(title="Score")
             )
 
             # 그래프 표시
