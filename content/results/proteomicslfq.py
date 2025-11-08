@@ -26,7 +26,7 @@ if not csv_files:
 csv_file = csv_files[0]
 
 # ✅ 탭 생성
-psm_tab, protein_tab = st.tabs(["📄 PSM-level Quantification Table", "🧬 Protein Table"])
+protein_tab, psm_tab = st.tabs(["🧬 Protein Table", "📄 PSM-level Quantification Table"])
 
 try:
     df = pd.read_csv(csv_file)
