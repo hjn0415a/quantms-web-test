@@ -9,7 +9,7 @@ from src.common.common import page_setup
 
 # Page setup
 params = page_setup()
-st.title("📈 MSstats Results")
+st.title("📈 Statistical Analysis")
 
 # Path to results folder
 results_dir = Path(st.session_state.workspace, "results")
