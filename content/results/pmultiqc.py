@@ -9,7 +9,7 @@ params = page_setup()
 st.markdown(
     """
     <h2 style='font-weight:700; margin-bottom:40px;'>
-        📊 MultiQC Plots Summary
+        📊 Quality Control Report
     </h2>
     """,
     unsafe_allow_html=True
@@ -19,25 +19,24 @@ results_dir = Path(st.session_state.workspace, "results")
 png_dir = results_dir / "summarypipeline" / "multiqc_plots" / "png"
 
 # 상단 2열로 출력할 파일 (Heatmap + ms1_tic)
-overview_files = [
-    "Heatmap.png",
-    "ms1_tic.png"
-]
+overview_files = {
+    "HeatMap.png" : 'Performance Overview',
+    "ms1_tic.png" : 'Total Ion Chromatogram'
+}
 
 # 하단 2열로 출력할 파일 (상세 분포)
-detailed_files = [
-    "peak_intensity_distribution-cnt.png",
-    "peak_intensity_distribution-pct.png",
-    "peaks_per_ms2-cnt.png",
-    "peaks_per_ms2-pct.png",
-]
+detailed_files = {
+    "peak_intensity_distribution-cnt.png" : 'Peak Intensity Distribution (Absolute)',
+    "peak_intensity_distribution-pct.png" : 'Peak Intensity Distribution (Relative)',
+    "peaks_per_ms2-cnt.png" : 'Number of Peaks (Absolute)',
+    "peaks_per_ms2-pct.png" : 'Number of Peaks (Relative)',
+}
 
 # --- Overview section ---
 overview_cols = st.columns(2)
-for i, png_file in enumerate(overview_files):
+for i, (png_file, display_name) in enumerate(overview_files.items()):
     img_path = png_dir / png_file
     if img_path.exists():
-        display_name = png_file.replace(".png", "")  # 확장자 제거
         with overview_cols[i % 2]:
             st.markdown(
                 f"<h5 style='text-align:center; font-weight:700; font-size:22px;'>{display_name}</h5>",
@@ -52,10 +51,9 @@ st.markdown("<hr style='margin: 30px 0;'>", unsafe_allow_html=True)
 
 # --- Detailed section ---
 detailed_cols = st.columns(2)
-for i, png_file in enumerate(detailed_files):
+for i, (png_file, display_name) in enumerate(detailed_files.items()):
     img_path = png_dir / png_file
     if img_path.exists():
-        display_name = png_file.replace(".png", "")  # 확장자 제거
         with detailed_cols[i % 2]:
             st.markdown(
                 f"<h5 style='text-align:center; font-weight:700; font-size:20px;'>{display_name}</h5>",
