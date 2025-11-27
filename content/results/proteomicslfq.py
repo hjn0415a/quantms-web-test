@@ -4,14 +4,15 @@ import pandas as pd
 
 from src.common.common import page_setup
 
-# 페이지 설정
+# Page setup
 params = page_setup()
 st.title("📊 Quantification Results")
 
-# 결과 폴더 경로
+# Path to results folder
 results_dir = Path(st.session_state.workspace, "results")
 proteomicslfq_dir = results_dir / "proteomicslfq"
 
+# Check directory existence
 if not proteomicslfq_dir.exists():
     st.warning("❗ 'proteomicslfq' directory not found. Please run the analysis first.")
     st.stop()
@@ -22,10 +23,10 @@ if not csv_files:
     st.info("No CSV files found in the 'proteomicslfq' directory.")
     st.stop()
 
-# ✅ 단일 CSV 선택
+# Select the first CSV file
 csv_file = csv_files[0]
 
-# ✅ 탭 생성
+# Create tabs for Protein-level and PSM-level tables
 protein_tab, psm_tab = st.tabs(["🧬 Protein Table", "📄 PSM-level Quantification Table"])
 
 try:
@@ -34,13 +35,13 @@ try:
         st.info("No data found in this file.")
         st.stop()
 
-    # ---------- RAW TAB ----------
+    # Raw tab
     with psm_tab:
         st.markdown(f"### 📄 PSM-level Quantification Table")
         st.info("💡INFO \n\n This table shows the PSM-level quantification data, including protein IDs,peptide sequences, charge states, and intensities across samples.Each row represents one peptide-spectrum match detected from the MS/MS analysis.")
         st.dataframe(df, use_container_width=True)
 
-    # ---------- PROTEIN TAB ----------
+    # Protein tab
     with protein_tab:
         st.markdown("### 🧬 Protein-Level Abundance Table")
         st.info("💡INFO \n\n"
@@ -48,14 +49,15 @@ try:
         "same protein and aggregating their intensities across samples.\n"
         "It provides an overview of protein abundance rather than individual peptide measurements."
         )
-        # Reference → Sample 변환
+        # Convert Reference → Sample
         df['Sample'] = df['Reference'].str.replace('.mzML', '', regex=False)
 
-        # Sample 리스트 수집
+        # Collect list of all samples
         all_samples = sorted(df['Sample'].unique())
 
         pivot_list = []
 
+        # Aggregate PSMs to protein-level table
         for protein, group in df.groupby('ProteinName'):
             peptides = ";".join(group['PeptideSequence'].unique())
             intensity_dict = group.groupby('Sample')['Intensity'].sum().to_dict()

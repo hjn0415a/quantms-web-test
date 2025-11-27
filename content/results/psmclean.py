@@ -6,27 +6,27 @@ from pyopenms import IdXMLFile
 
 from src.common.common import page_setup
 
-# 페이지 설정
+# Page setup
 params = page_setup()
 st.title("🧹 Psmclean")
 
-# 결과 폴더 경로
+# Path to results folder
 results_dir = Path(st.session_state.workspace, "results")
 psmclean_dir = results_dir / "psmclean"
 
-# 경로 확인
+# Check directory existence
 if not psmclean_dir.exists():
     st.warning("❗ 'psmclean' directory not found. Please run the analysis first.")
     st.stop()
 
-# idXML 파일 리스트 가져오기
+# Get list of idXML files
 idxml_files = sorted(psmclean_dir.glob("*.idXML"))
 
 if not idxml_files:
     st.info("No idXML files found in the 'psmclean' directory.")
     st.stop()
 
-# idXML -> DataFrame 변환 함수
+# Convert idXML -> DataFrame
 def idxml_to_dataframe(idxml_file: str) -> pd.DataFrame:
     proteins = []
     peptides = []
@@ -48,17 +48,17 @@ def idxml_to_dataframe(idxml_file: str) -> pd.DataFrame:
             })
     df = pd.DataFrame(records)
     if not df.empty:
-        # 문자열 범주형으로 변환
+        # Convert Charge to ordered categorical type
         df["Charge"] = df["Charge"].astype(str)
         charge_order = sorted(df["Charge"].unique())
         df["Charge"] = pd.Categorical(df["Charge"], categories=charge_order, ordered=True)
 
-        # 🔹 색상 스케일용 숫자형 컬럼 추가 (필요 시 활용)
+        # Add numeric column for color scaling (optional)
         df["Charge_num"] = df["Charge"].astype(int)
 
     return df
 
-# 파일 이름으로 탭 생성
+# Create a tab for each file
 tabs = st.tabs([f.stem.split("_")[0] for f in idxml_files])
 
 for tab, idxml_file in zip(tabs, idxml_files):
@@ -80,22 +80,22 @@ for tab, idxml_file in zip(tabs, idxml_files):
                 color="Charge",
                 hover_data=["Sequence", "Score", "Proteins"],
                 category_orders={"Charge": df["Charge"].cat.categories},
-                color_discrete_sequence=["#a6cee3", "#1f78b4", "#08519c", "#08306b"]  # 🔹 2→5 점점 진해지는 파랑
+                color_discrete_sequence=["#a6cee3", "#1f78b4", "#08519c", "#08306b"]  # Gradient blue tone
             )
 
-            # 🔹 점 크기 및 투명도 조정
+            # Adjust marker size and transparency
             fig.update_traces(marker=dict(size=4, opacity=0.7))
 
-            # 🔹 범례와 레이아웃 정돈
+            # Improve layout and legend
             fig.update_layout(
                 legend_title_text="Charge",
                 coloraxis_colorbar=dict(title="Charge")
             )
 
-            # 그래프 표시
+            # Display scatter plot
             st.plotly_chart(fig, use_container_width=True)
 
-            # DataFrame 테이블 표시
+            # Display DataFrame
             st.dataframe(df, use_container_width=True)
 
         except Exception as e:

@@ -2,10 +2,10 @@ from pathlib import Path
 import streamlit as st
 from src.common.common import page_setup
 
-# 페이지 설정
+# Page setup
 params = page_setup()
 
-# 제목 (subheader 크기로, 중앙 정렬 + 간격 추가)
+# Title (styled as subheader: centered + spacing)
 st.markdown(
     """
     <h2 style='font-weight:700; margin-bottom:40px;'>
@@ -18,13 +18,13 @@ st.markdown(
 results_dir = Path(st.session_state.workspace, "results")
 png_dir = results_dir / "summarypipeline" / "multiqc_plots" / "png"
 
-# 상단 2열로 출력할 파일 (Heatmap + ms1_tic)
+# Top section files (overview: Heatmap + ms1_tic)
 overview_files = {
     "HeatMap.png" : 'Performance Overview',
     "ms1_tic.png" : 'Total Ion Chromatogram'
 }
 
-# 하단 2열로 출력할 파일 (상세 분포)
+# Bottom grid section (detailed plot distribution)
 detailed_files = {
     "peak_intensity_distribution-cnt.png" : 'Peak Intensity Distribution (Absolute)',
     "peak_intensity_distribution-pct.png" : 'Peak Intensity Distribution (Relative)',
@@ -32,7 +32,7 @@ detailed_files = {
     "peaks_per_ms2-pct.png" : 'Number of Peaks (Relative)',
 }
 
-# --- Overview section ---
+# Overview section
 overview_cols = st.columns(2)
 for i, (png_file, display_name) in enumerate(overview_files.items()):
     img_path = png_dir / png_file
@@ -49,7 +49,7 @@ for i, (png_file, display_name) in enumerate(overview_files.items()):
 
 st.markdown("<hr style='margin: 30px 0;'>", unsafe_allow_html=True)
 
-# --- Detailed section ---
+# Detailed section
 detailed_cols = st.columns(2)
 for i, (png_file, display_name) in enumerate(detailed_files.items()):
     img_path = png_dir / png_file
